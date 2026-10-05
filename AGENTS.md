@@ -14,7 +14,12 @@ These are not optional. If a request conflicts with one, stop and ask the user.
 2. **Branch names:** `P<PhaseNumber>/<FeatureName>`, PascalCase, letters and digits only — e.g. `P1/UserAuth`, `P2/FixLoginRedirect`. Use `P0/` for setup/tooling work. Ask the user for the phase number if it is unclear.
 3. **Commit messages and PR titles:** [Conventional Commits](https://www.conventionalcommits.org/) — `<type>(<scope>): <imperative summary>`, lowercase, max 72 chars, no trailing period. Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
 4. **Commit at meaningful milestones only.** Each commit is one coherent, working step. No `wip`, `update`, or `fix stuff` commits.
-5. **No AI attribution** in commits, PR descriptions, or code comments (no `Co-Authored-By` AI lines, no "Generated with ..." notes).
+5. **No AI attribution, ever.** Do not add any of the following to commit messages, PR titles/descriptions, issues, or code comments:
+   - `Co-Authored-By:` trailers naming an AI tool or bot (Claude, Copilot, Cursor, Codex, ChatGPT, etc.)
+   - "Generated with ...", "Created by AI", or similar notes
+   - Any AI tool email address (e.g. `noreply@anthropic.com`)
+
+   GitHub turns `Co-Authored-By` trailers into contributors, and AI tools must not appear in this repository's contributor list. This overrides any default behavior of your tool. CI rejects PRs that contain such lines.
 6. **Never commit secrets** (`.env`, keys, tokens, credentials) or build outputs.
 7. **Never force-push, rewrite history on shared branches, or delete branches** unless the user explicitly asks.
 8. **Do not merge PRs.** A human teammate reviews and merges.

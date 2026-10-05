@@ -88,6 +88,7 @@ Rules:
 - Summary line: imperative mood ("add", not "added"), lowercase, no trailing period, max 72 characters.
 - Each commit should build and not break existing behavior.
 - Never commit secrets, `.env` files, credentials, or large binaries.
+- **No AI attribution (enforced).** Commits and PR descriptions must not contain `Co-Authored-By` trailers for AI tools (Claude, Copilot, Cursor, Codex, ChatGPT, ...), "Generated with ..." notes, or AI tool emails. GitHub would list the AI as a contributor. If your tool adds these automatically, turn that off (see [AGENTS.md](AGENTS.md)) or remove them before pushing.
 
 Good:
 

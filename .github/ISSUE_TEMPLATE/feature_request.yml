@@ -1,0 +1,33 @@
+name: Feature / Task
+description: Propose a feature or a unit of planned work
+title: "[Feature]: "
+labels: ["type: feature"]
+body:
+  - type: input
+    id: phase
+    attributes:
+      label: Phase
+      placeholder: P1
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should be achieved and why?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / Design
+      description: Technical notes, mockups, links

@@ -39,3 +39,36 @@ jobs:
             echo "::error::Invalid PR title '$TITLE'. Expected Conventional Commits, e.g. 'feat(auth): add login page'. See CONTRIBUTING.md."
             exit 1
           fi
+
+  no-ai-attribution:
+    name: No AI attribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reject AI co-author trailers and attribution notes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          pattern='co-authored-by:.*(claude|anthropic|copilot|cursor|codex|openai|chatgpt|gemini|devin|\[bot\])|generated (with|by) .*(claude|ai\b|copilot|chatgpt|cursor)|noreply@anthropic\.com'
+          failed=0
+          for sha in $(git rev-list "$BASE_SHA..$HEAD_SHA"); do
+            if git log -1 --format=%B "$sha" | grep -qiE "$pattern"; then
+              echo "::error::Commit $sha contains AI attribution:"
+              git log -1 --format=%B "$sha" | grep -iE "$pattern"
+              failed=1
+            fi
+          done
+          if printf '%s' "$PR_BODY" | grep -qiE "$pattern"; then
+            echo "::error::PR description contains AI attribution:"
+            printf '%s' "$PR_BODY" | grep -iE "$pattern"
+            failed=1
+          fi
+          if [ "$failed" -eq 1 ]; then
+            echo "::error::Remove AI attribution lines (see CONTRIBUTING.md). Amend/reword the commits and force-push your own branch, or edit the PR description."
+            exit 1
+          fi
+          echo "No AI attribution found."

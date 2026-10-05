@@ -22,7 +22,7 @@ These are not optional. If a request conflicts with one, stop and ask the user.
    GitHub turns `Co-Authored-By` trailers into contributors, and AI tools must not appear in this repository's contributor list. This overrides any default behavior of your tool. CI rejects PRs that contain such lines.
 6. **Never commit secrets** (`.env`, keys, tokens, credentials) or build outputs.
 7. **Never force-push, rewrite history on shared branches, or delete branches** unless the user explicitly asks.
-8. **Do not merge PRs.** A human teammate reviews and merges.
+8. **Merging:** you may merge a PR when the user asks, only with squash merge (`gh pr merge <n> --squash --delete-branch`) and only after all CI checks pass.
 
 ## Workflow
 
